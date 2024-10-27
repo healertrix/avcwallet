@@ -1,0 +1,302 @@
+SimpleCoin API Documentation
+
+Base URL: https://avc-production.up.railway.app
+
+Table of Contents:
+1. Create Wallet
+2. Check Balance
+3. Send Transaction
+4. Mine Block
+5. Forge Block
+6. Deploy Smart Contract
+7. Execute Smart Contract
+8. Get Blockchain Data
+9. Mint NFT
+10. Transfer NFT
+11. View NFT
+12. View Owned NFTs
+
+---
+
+1. Create Wallet
+Creates a new wallet with a public and private key pair.
+
+URL: /api/create-wallet
+Method: POST
+Request Body: None
+Response:
+{
+  "publicKey": "string",
+  "privateKey": "string"
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+2. Check Balance
+Retrieves the balance for a given wallet address.
+
+URL: /api/balance/:address
+Method: GET
+URL Params: 
+  - address: Wallet address
+Response:
+{
+  "balance": "number"
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+3. Send Transaction
+Sends a transaction from one address to another.
+
+URL: /api/transaction
+Method: POST
+Request Body:
+{
+  "fromAddress": "string",
+  "toAddress": "string",
+  "amount": "number",
+  "fee": "number",
+  "privateKey": "string"
+}
+Response:
+{
+  "message": "Transaction added to pending transactions"
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+4. Mine Block
+Mines a new block and adds it to the blockchain.
+
+URL: /api/mine
+Method: POST
+Request Body:
+{
+  "minerAddress": "string"
+}
+Response:
+{
+  "block": {
+    "transactions": [
+      {
+        "fromAddress": "string | null",
+        "toAddress": "string",
+        "amount": "number",
+        "type": "string"
+      }
+    ]
+  }
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+5. Forge Block
+Forges a new block in a Proof-of-Stake system.
+
+URL: /api/forge
+Method: POST
+Request Body:
+{
+  "forgerAddress": "string"
+}
+Response:
+{
+  "block": {
+    "transactions": [
+      {
+        "fromAddress": "string | null",
+        "toAddress": "string",
+        "amount": "number"
+      }
+    ]
+  }
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+6. Deploy Smart Contract
+Deploys a new smart contract to the blockchain.
+
+URL: /api/deploy-contract
+Method: POST
+Request Body:
+{
+  "address": "string",
+  "code": "string"
+}
+Response:
+{
+  "message": "string"
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+7. Execute Smart Contract
+Executes a function on a deployed smart contract.
+
+URL: /api/execute-contract
+Method: POST
+Request Body:
+{
+  "contractAddress": "string",
+  "transaction": {
+    "action": "string",
+    "params": "object"
+  }
+}
+Response:
+{
+  "result": "any"
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+8. Get Blockchain Data
+Retrieves the entire blockchain data.
+
+URL: /api/blockchain
+Method: GET
+Response: 
+{
+  "chain": [
+    {
+      "index": "number",
+      "timestamp": "number",
+      "transactions": "array",
+      "previousHash": "string",
+      "hash": "string"
+    }
+  ]
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+9. Mint NFT
+Mints a new Non-Fungible Token (NFT).
+
+URL: /api/mint-nft
+Method: POST
+Request Body:
+{
+  "owner": "string",
+  "metadata": {
+    "name": "string",
+    "description": "string"
+  },
+  "fee": "number"
+}
+Response:
+{
+  "tokenId": "string"
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+10. Transfer NFT
+Transfers an NFT from one address to another.
+
+URL: /api/transfer-nft
+Method: POST
+Request Body:
+{
+  "tokenId": "string",
+  "fromAddress": "string",
+  "toAddress": "string",
+  "privateKey": "string"
+}
+Response:
+{
+  "message": "NFT transfer transaction added to mempool"
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+11. View NFT
+Retrieves information about a specific NFT.
+
+URL: /api/nft/:tokenId
+Method: GET
+URL Params:
+  - tokenId: NFT token ID
+Response:
+{
+  "metadata": {
+    "name": "string",
+    "description": "string"
+  },
+  "owner": "string",
+  "tokenId": "string"
+}
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+12. View Owned NFTs
+Retrieves all NFTs owned by a specific address.
+
+URL: /api/nfts/:ownerAddress
+Method: GET
+URL Params:
+  - ownerAddress: Owner's wallet address
+Response:
+[
+  {
+    "metadata": {
+      "name": "string",
+      "description": "string"
+    },
+    "tokenId": "string"
+  }
+]
+Error Response:
+{
+  "error": "string"
+}
+
+---
+
+Note: This API documentation assumes that the server is set up to handle these endpoints and that the necessary backend logic is implemented to support these operations. The actual implementation may vary depending on the server-side code and the blockchain implementation details.
